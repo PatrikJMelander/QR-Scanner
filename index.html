@@ -39,19 +39,19 @@
       <div class="row pt-3">
         <div class="col align-self-center text-center">
           <div class="d-flex justify-content-between me-5 ms-5 mb-2">
-            <a href="../homepage-logged-in/index.html">
+            <Button id="create-pdf-btn">
               <img src="./images/pdf.png" />
-            </a>
+            </Button>
             <button
             class="btn btn-outline-secondary"
-            id="new-scan"
+            id="save-scans"
           >
-            New Scan
+            Save Scanns
           </button>
 
-            <a href="../highscore/index.html"
-              ><img src="./images/excel.png"
-            /></a>
+            <Button id="create-excel-btn">
+              <img src="./images/excel.png"
+            /></Button>
           </div>
 
         </div>
@@ -75,6 +75,10 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.15/plugins/export/libs/FileSaver.js/FileSaver.min.js"></script>
     <script src="./src/js/qrCodeReader.js"></script>
+    <script src="./src/js/xlsx.mini.js"></script>
+    <script src="./src/js/main.js"></script>
+
   </body>
 </html>
