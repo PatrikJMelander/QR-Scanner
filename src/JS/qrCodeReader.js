@@ -1,4 +1,4 @@
-const qrcode = window.qrcode;
+//const qrcode = window.qrcode; already defined
 
 const video = document.createElement("video");
 const canvasElement = document.getElementById("qr-canvas");
