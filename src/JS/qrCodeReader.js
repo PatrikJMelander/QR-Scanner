@@ -8,16 +8,25 @@ const qrResult = document.getElementById("qr-result");
 const outputData = document.getElementById("outputData");
 const btnScanQR = document.getElementById("btn-scan-qr");
 
+var refNumScanned = [];
+
 let scanning = false;
 
 qrcode.callback = (res) => {
+    //refNumScanned = JSON.parse(localStorage.getItem("RefNumbersScanned"));
     if (res) {
       outputData.innerText = res;
       scanning = false;
+      refNumScanned.push(res)
+      localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned))
+      
   
       video.srcObject.getTracks().forEach(track => {
         track.stop();
+
+
       });
+
   
       qrResult.hidden = false;
       btnScanQR.hidden = false;
