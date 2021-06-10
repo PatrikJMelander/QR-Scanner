@@ -89,7 +89,7 @@ function generateTable() {
   refNumScanned.forEach((element) => {
     $("#table-for-scanned-references").append(`
     <tr>
-    <th scope="row">1</th>
+    <th scope="row">${counter}</th>
     <td>${element.Ref}</td>
     <td>
         <div class="col-3 col-md-2 qty-label d-flex justify-content">
