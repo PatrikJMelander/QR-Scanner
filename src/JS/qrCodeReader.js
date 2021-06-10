@@ -8,52 +8,49 @@ const qrResult = document.getElementById("qr-result");
 const outputData = document.getElementById("outputData");
 const btnScanQR = document.getElementById("btn-scan-qr");
 
-var refNumber = {String:"" , Amount:1}
+var refNumber = { String: "", Amount: 1 };
 var refNumScanned = [];
 
 let scanning = false;
 
 qrcode.callback = (res) => {
-    
-    if (res) {
-      outputData.innerText = res;
-      scanning = false;
+  if (res) {
+    outputData.innerText = res;
+    scanning = false;
 
-      var checkIfDuplicate = false
-        
-      refNumScanned.forEach(element => {
-          if (element.Ref===res){
-              console.log("hittar en duplicate")
-            element.Amount += 1;
-            console.log("nytt amount värde är " + element.Amount)
-            checkIfDuplicate = true;
-          }
+    var checkIfDuplicate = false;
 
-      });
-       if (!checkIfDuplicate){
-        var refNumber = {Ref:res , Amount:1};
-        refNumScanned.push(refNumber)
-      } 
-      
-      localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned))
-      
-      generateTable()
-  
-      video.srcObject.getTracks().forEach(track => {
-        track.stop();
-      });
-
-  
-      qrResult.hidden = false;
-      btnScanQR.hidden = false;
-      canvasElement.hidden = true;
+    refNumScanned.forEach((element) => {
+      if (element.Ref === res) {
+        console.log("hittar en duplicate");
+        element.Amount += 1;
+        console.log("nytt amount värde är " + element.Amount);
+        checkIfDuplicate = true;
+      }
+    });
+    if (!checkIfDuplicate) {
+      var refNumber = { Ref: res, Amount: 1 };
+      refNumScanned.push(refNumber);
     }
-    };
 
-  btnScanQR.onclick = () => {
+    localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
+
+    generateTable();
+
+    video.srcObject.getTracks().forEach((track) => {
+      track.stop();
+    });
+
+    qrResult.hidden = false;
+    btnScanQR.hidden = false;
+    canvasElement.hidden = true;
+  }
+};
+
+btnScanQR.onclick = () => {
   navigator.mediaDevices
     .getUserMedia({ video: { facingMode: "environment" } })
-    .then(function(stream) {
+    .then(function (stream) {
       scanning = true;
       qrResult.hidden = true;
       btnScanQR.hidden = true;
@@ -64,115 +61,80 @@ qrcode.callback = (res) => {
       tick();
       scan();
     });
-    };
+};
 
 function tick() {
-    canvasElement.height = video.videoHeight;
-    canvasElement.width = video.videoWidth;
-    canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
-  
-    scanning && requestAnimationFrame(tick);
+  canvasElement.height = video.videoHeight;
+  canvasElement.width = video.videoWidth;
+  canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+
+  scanning && requestAnimationFrame(tick);
+}
+
+// Defining Scan functon
+function scan() {
+  try {
+    qrcode.decode();
+  } catch (e) {
+    setTimeout(scan, 300);
   }
+}
 
-  // Defining Scan functon
-  function scan() {
-    try {
-      qrcode.decode();
-    } catch (e) {
-      setTimeout(scan, 300);
-    }
-  }
+function generateTable() {
+  refNumScanned = JSON.parse(localStorage.getItem("RefNumbersScanned"));
+  var counter = 1;
 
-  function generateTable(){ 
-    refNumScanned = JSON.parse(localStorage.getItem("RefNumbersScanned"));
-    var counter = 1
+  $("#table-for-scanned-references").empty();
 
-    $("#table-for-scanned-references").empty();
-
-    refNumScanned.forEach((element) => {
+  refNumScanned.forEach((element) => {
     $("#table-for-scanned-references").append(`
     <tr>
-    <th scope="row">${counter}</th>
+    <th scope="row">1</th>
     <td>${element.Ref}</td>
     <td>
         <div class="col-3 col-md-2 qty-label d-flex justify-content">
-            <button id="decrese${element.Ref}" class="btn btn-light decrease-button">
-                <img src="./images/dash-circle-fill.svg" />
-            </button>
-            <span class="border text-center px-lg-2 quantity" id="amount${
-              element.Ref
-            }"
-              >${element.Amount}</span
-            >
-            <button id="add${element.Ref}" class="btn btn-light increase-button">
-                <img src="./images/plus-circle-fill.svg" />
+            <span class="text-center px-lg-2" id="amount${element.Ref}"
+              >${element.Amount}</span>
+
+        </div>
+    </td>
+    <td>
+        <div class="col-3 col-md-2 d-flex">
+            <input type="text" maxlength="2" value="1"  class="adjustAmount${element.Ref} text-center" style="width: 25px">
+            <button id="add${element.Ref}" class="btn btn-light add-button">
+                <img src="./images/plus-circle-fill.svg"/>
+                </button>
+            <button id="trash${element.Ref}" class="btn btn-light trash-button">
+            <img src="./images/trash-fill.svg"/>
             </button>
         </div>
     </td>
   </tr>
 
   `);
-  counter++;
- /*  $(".decrease-button}").on("click", function (e) {
-    removeAmount(+e.target.id);
-  });
 
-  $(".increase-button").on("click", function (e) {
-    addAmount(+e.target.id);
-  });*/
+    counter++;
+
+    $(".add-button").on("click", function (e) {
+      addAmount(e.currentTarget.id);
+    });
   });
 }
 
-/* function addAmount(product) {
-    let cartQuantity = JSON.parse(localStorage.getItem("RefNumbersScanned"));
-    let cartTemp = JSON.parse(localStorage.getItem("cart"));
-    cartTemp.forEach((element) => {
-      if (element.sku == product) {
-        if (element.inCart < 99) {
-          element.inCart += 1;
-          addToTotalPrice(element);
-          cartQuantity += 1;
-          document.getElementById("total-items-in-cart").innerHTML = cartQuantity;
-        }
+function addAmount(refToAdd) {
+  refNumScanned = JSON.parse(localStorage.getItem("RefNumbersScanned"));
+  refToAdd = refToAdd.slice(3);
+  console.log(refToAdd)
+
+
+  var amountToAdd = $(".adjustAmount"+refToAdd).val()
+  console.log(amountToAdd)
+
+  refNumScanned.forEach(element => {
+      if (element.Ref == refToAdd){
+          element.Amount += parseInt(amountToAdd)
       }
-    });
-    localStorage.setItem("cart", JSON.stringify(cartTemp));
-    updateCartQuantity();
-    $("#priceOutput").text(
-      JSON.parse(localStorage.getItem("cartTotalPrice")).toLocaleString(
-        "sv-SE",
-        {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        }
-      )
-    );
-    localStorage.setItem("cartQuantity", JSON.stringify(cartQuantity));
-  }
-  
-  function removeAmount(product) {
-    let cartQuantity = JSON.parse(localStorage.getItem("cartQuantity"));
-    let cartTemp = JSON.parse(localStorage.getItem("cart"));
-    cartTemp.forEach((element) => {
-      if (element.sku == product) {
-        if (element.inCart !== 1) {
-          element.inCart -= 1;
-          removeFromTotalPrice(element);
-          cartQuantity -= 1;
-          document.getElementById("total-items-in-cart").innerHTML = cartQuantity;
-        }
-      }
-    });
-    localStorage.setItem("cart", JSON.stringify(cartTemp));
-    updateCartQuantity();
-    $("#priceOutput").text(
-      JSON.parse(localStorage.getItem("cartTotalPrice")).toLocaleString(
-        "sv-SE",
-        {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        }
-      )
-    );
-    localStorage.setItem("cartQuantity", JSON.stringify(cartQuantity));
-  } */
+  });
+  localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
+  generateTable();
+}

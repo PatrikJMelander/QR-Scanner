@@ -39,12 +39,34 @@
             <th scope="col">#</th>
             <th scope="col">Scan</th>
             <th scope="col">Amount</th>
+            <th scope="col">Adjust</th>
           </tr>
         </thead>
         <tbody id="table-for-scanned-references">
-          
 
-        
+            <tr>
+                <th scope="row">1</th>
+                <td>12345678</td>
+                <td>
+                    <div class="col-3 col-md-2 qty-label d-flex justify-content">
+                        <span class="text-center px-lg-2" id="amount12345678"
+                          >2</span>
+            
+                    </div>
+                </td>
+                <td>
+                    <div class="col-3 col-md-2 d-flex">
+                        <input type="text" maxlength="2" value="1"  class="adjustAmount12345678 text-center" style="width: 25px">
+                        <button id="add12345678" class="btn btn-light add-button">
+                            <img src="./images/plus-circle-fill.svg"/>
+                            </button>
+                        <button id="trash12345678" class="btn btn-light trash-button">
+                        <img src="./images/trash-fill.svg"/>
+                        </button>
+                    </div>
+                </td>
+              </tr>
+          
         </tbody>
       </table>
 
