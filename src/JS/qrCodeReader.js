@@ -100,6 +100,9 @@ function generateTable() {
     </td>
     <td>
         <div class="col-3 col-md-2 d-flex">
+        <button id="reduce${element.Ref}" class="btn btn-light reduce-button">
+        <img src="./images/dash-circle-fill.svg"/>
+        </button>
             <input type="text" maxlength="2" value="1"  class="adjustAmount${element.Ref} text-center" style="width: 25px">
             <button id="add${element.Ref}" class="btn btn-light add-button">
                 <img src="./images/plus-circle-fill.svg"/>
@@ -118,7 +121,18 @@ function generateTable() {
     $(".add-button").on("click", function (e) {
       addAmount(e.currentTarget.id);
     });
+
+    $(".trash-button").on("click", function (e) {
+        removeReference(e.currentTarget.id);
+      });
+
+      $(".reduce-button").on("click", function (e) {
+        reduceAmount(e.currentTarget.id);
+      });
+
+
   });
+  
 }
 
 function addAmount(refToAdd) {
@@ -126,9 +140,7 @@ function addAmount(refToAdd) {
   refToAdd = refToAdd.slice(3);
   console.log(refToAdd)
 
-
   var amountToAdd = $(".adjustAmount"+refToAdd).val()
-  console.log(amountToAdd)
 
   refNumScanned.forEach(element => {
       if (element.Ref == refToAdd){
@@ -138,3 +150,33 @@ function addAmount(refToAdd) {
   localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
   generateTable();
 }
+
+
+function reduceAmount(refToReduce) {
+    refNumScanned = JSON.parse(localStorage.getItem("RefNumbersScanned"));
+    refToReduce = refToReduce.slice(6);
+  
+    var amountToAdd = $(".adjustAmount"+refToReduce).val()
+  
+    refNumScanned.forEach(element => {
+        if (element.Ref == refToReduce){
+            element.Amount -= parseInt(amountToAdd)
+        }
+    });
+    localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
+    generateTable();
+  }
+
+  function removeReference(refToRemove){
+    refNumScanned = JSON.parse(localStorage.getItem("RefNumbersScanned"));
+    refToRemove = refToRemove.slice(5)
+    console.log(refToRemove)
+
+    refNumScanned.forEach((element, index) => {
+        if (element.Ref == refToRemove){
+            refNumScanned.splice(index, 1)
+        }
+    });
+    localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
+    generateTable();
+  }
