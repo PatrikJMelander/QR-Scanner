@@ -29,9 +29,25 @@
         <canvas hidden="" id="qr-canvas"></canvas>
     
         <div id="qr-result" hidden="">
-            <b>Data:</b> <span id="outputData"></span>
+            <b>Just Scanned:</b> <span id="outputData"></span>
         </div>
     </div>
+    <h2 class="mt-5 d-flex justify-content-center">Scanned references</h2>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Scan</th>
+            <th scope="col">Amount</th>
+          </tr>
+        </thead>
+        <tbody id="table-for-scanned-references">
+          
+
+        
+        </tbody>
+      </table>
+
 
 
     <!-- Footer -->
@@ -44,9 +60,9 @@
             </Button>
             <button
             class="btn btn-outline-secondary"
-            id="save-scans"
+            id="clear-scans"
           >
-            Save Scanns
+            Clear Scanns
           </button>
 
             <Button id="create-excel-btn">

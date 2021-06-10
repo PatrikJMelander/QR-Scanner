@@ -1,9 +1,9 @@
 var wb = XLSX.utils.book_new();
 wb.Props = {
-    Title: "SheetJS Tutorial",
-    Subject: "Test",
-    Author: "Red Stapler",
-    CreatedDate: new Date(2017,12,19)
+    Title: "Scans",
+    Subject: "Scan",
+    Author: "Patrik Melander",
+    CreatedDate: new Date(2021,06,09)
 };
 var ws_data =[['hello','world']]
 
@@ -27,11 +27,13 @@ function s2ab(s) {
 
 
 $('#create-excel-btn').click(function(){
-    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'test.xlsx');
+    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'scans.xlsx');
 });
 
-$('#save-scans').click(function(){
-    
+$('#clear-scans').click(function(){
+localStorage.clear();
+
+
 });
 
 
