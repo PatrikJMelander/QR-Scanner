@@ -101,14 +101,14 @@ function generateTable() {
     <td>
         <div class="col-3 col-md-2 d-flex">
         <button id="reduce${element.Ref}" class="btn btn-light reduce-button">
-        <img src="./images/dash-circle-fill.svg"/>
+        <img src="../../images/dash-circle-fill.svg"/>
         </button>
-            <input type="text" maxlength="2" value="1"  class="adjustAmount${element.Ref} text-center" style="width: 25px">
+            <input type="text" maxlength="2" value="1"  class="adjustAmount${element.Ref} text-center" style="width: 30px">
             <button id="add${element.Ref}" class="btn btn-light add-button">
-                <img src="./images/plus-circle-fill.svg"/>
+                <img src="../../images/plus-circle-fill.svg"/>
                 </button>
             <button id="trash${element.Ref}" class="btn btn-light trash-button">
-            <img src="./images/trash-fill.svg"/>
+            <img src="../../images/trash-fill.svg"/>
             </button>
         </div>
     </td>
