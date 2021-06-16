@@ -22,9 +22,7 @@ qrcode.callback = (res) => {
 
     refNumScanned.forEach((element) => {
       if (element.Ref === res) {
-        console.log("hittar en duplicate");
         element.Amount += 1;
-        console.log("nytt amount värde är " + element.Amount);
         checkIfDuplicate = true;
       }
     });

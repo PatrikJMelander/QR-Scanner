@@ -1,3 +1,17 @@
+// for localhost
+//const startUrl = 'http://localhost:8080/'
+
+// for heruko 
+const startUrl = 'https://qr-road-signs.herokuapp.com'
+
+
+let validateLogin = `${startUrl}/api/v1/users/validate/`
+let getAllUsers = `${startUrl}/api/v1/users/`
+let deleteUser = `${startUrl}/api/v1/users/delete`
+let updateUser = `${startUrl}/api/v1/users/update`
+let updatePassword = `${startUrl}/api/v1/users/update/password`
+let addAccount = `${startUrl}/api/v1/users/add`
+
 //------------------------------------EXCEL------------------------------------
 $('#create-excel-btn').click(function(){
     var wb = XLSX.utils.table_to_book(document.getElementById('tableToExcel'), {sheet:"Scanned References"});
@@ -22,12 +36,18 @@ $('#create-excel-btn').click(function(){
     saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'scans.xlsx');
 });
 
+//------------------------------------PDF IN PROGRESS------------------------------------
+
+$('#create-pdf-btn').click(function(){
+
+    swal("This function is for future updates")
+
+});
+
 //------------------------------------Click Actions------------------------------------
 
 $('#clear-scans').click(function(){
 localStorage.clear()
-
-
 });
 
 $('#new-user').click(() => {
@@ -94,7 +114,7 @@ const validateSignIn = () => {
             $('#loginModal').modal('hide')
             email.val('')
             password.val('')
-            window.location.replace("./html/index.html");
+            window.location.replace("./src/html/index.html");
             
         }
         if(resp.status == 204){
@@ -107,6 +127,18 @@ const validateSignIn = () => {
         swal("Warning", "wrong email \nor password!", "warning");
         password.val('')
     })
+}
+
+const checkIfLoggedIn = () => {
+    const isLoggedIn = JSON.parse(sessionStorage.getItem('loggedIn'))
+    
+    if(isLoggedIn == null){
+        $('#nav-sign-in').text('Sign in');
+        
+        
+    }else {
+        window.location.href='../html/index.html'
+    }
 }
 //------------------------------------Sign out------------------------------------
 

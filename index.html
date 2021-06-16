@@ -16,7 +16,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="./">Go North</a>
+          <a class="navbar-brand" href="./">QR Scanner for Roadsigns</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -66,41 +66,6 @@
       </div>
     </div>
   </div>
-<!-- REG MODAL -->
-  <div class="modal fade" id="regModal" tabindex="-1" aria-labelledby="regModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title text-center" id="regModal">Register new user</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="reg-firstName" placeholder="firstname">
-            <label for="sign-in-email">Firstname</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="reg-lastName" placeholder="lastname">
-            <label for="sign-in-password">Lastname</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="reg-email" placeholder="name@example.com">
-            <label for="sign-in-email">Email</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="reg-password" placeholder="Password">
-            <label for="sign-in-password">Password</label>
-          </div>
-        </div>
-        <div class="modal-footer flex-column d-grid gap-2 col-6 mx-auto">
-          <button type="button" class="btn btn-secondary" id="reg-add-account">Register</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
       <footer class="container">
         <div class="row pt-5">
           <div class="col align-self-center text-center">
@@ -121,8 +86,7 @@
   ></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="./url.js"></script>
-  <script src="./app.js"></script>
+  <script src="./src/JS/main.js"></script>
   <script>
     $(document).ready(() => {
       const isLoggedIn = JSON.parse(sessionStorage.getItem('loggedIn'))
@@ -132,7 +96,7 @@
         
     }else {
       console.log("borde skicka till inloggat läge" )
-        window.location.href='./pages/homepage-logged-in/index.html'
+        window.location.href='./html/index.html'
     }
     })
   </script>
