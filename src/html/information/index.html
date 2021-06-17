@@ -146,5 +146,23 @@
     ></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../../JS/main.js"></script>
+    <script>
+      $(document).ready(() => {
+        const isLoggedIn = JSON.parse(sessionStorage.getItem("loggedIn"));
+
+        if (isLoggedIn == null) {
+          window.location.href =
+            "../../../";
+        }
+        fillUserInfo();
+
+        $("#profile-info-sign-out").click(() => {
+          sessionStorage.removeItem("loggedIn");
+          window.location.href = "../../../";
+        });
+      });
+    </script>
+</script>
   </body>
 </html>

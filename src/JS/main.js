@@ -48,6 +48,7 @@ $('#create-pdf-btn').click(function(){
 
 $('#clear-scans').click(function(){
 localStorage.clear()
+window.location.replace("./");
 });
 
 $('#new-user').click(() => {
@@ -166,7 +167,7 @@ const registrateAccount = () => {
 
     axios.post(addAccount, newAccount)
     .then((resp)=> {
-        swal("Welcome!", `${resp.data.firstName} you have joined the race`, "success")
+        swal("God job!", `You just added a co-worker: ${resp.data.firstName}`, "success")
         .then(()=> {
             regFirstName.val('')
             regLastName.val('')
