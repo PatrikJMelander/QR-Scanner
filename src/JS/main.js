@@ -102,6 +102,40 @@ $('#delete-user').click(() => {
       });
 })
 
+$('#submit-from-list').click(() => {
+    submitFromList()
+})
+
+
+//------------------------------------Dropdown Menu------------------------------------
+function submitFromList(){ 
+    signToAdd = $('#selected-from-list')
+
+        if(signToAdd.val()=="Choose from list"){
+            return;
+        }
+
+        outputData.innerText = signToAdd.val();
+
+        var checkIfDuplicate = false;
+    
+        refNumScanned.forEach((element) => {
+          if (element.Ref === signToAdd.val()) {
+            element.Amount += 1;
+            checkIfDuplicate = true;
+          }
+        });
+        if (!checkIfDuplicate) {
+          var refNumber = { Ref: signToAdd.val(), Amount: 1 };
+          refNumScanned.push(refNumber);
+        }
+    
+        localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
+    
+        generateTable();
+}
+
+
 //------------------------------------Validate Login------------------------------------
 const validateSignIn = () => { 
     const email = $('#sign-in-email')
