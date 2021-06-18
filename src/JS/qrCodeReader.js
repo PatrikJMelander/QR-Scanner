@@ -1,4 +1,4 @@
-//const qrcode = window.qrcode; already defined
+
 
 const video = document.createElement("video");
 const canvasElement = document.getElementById("qr-canvas");
@@ -7,6 +7,8 @@ const canvas = canvasElement.getContext("2d");
 const qrResult = document.getElementById("qr-result");
 const outputData = document.getElementById("outputData");
 const btnScanQR = document.getElementById("btn-scan-qr");
+const btnScanQRbtn = document.getElementById("btn-scan-qr-btn");
+const btnStopQRbtn = document.getElementById("btn-stop-qr-btn");
 
 var refNumber = { String: "", Amount: 1 };
 var refNumScanned = [];
@@ -22,9 +24,7 @@ qrcode.callback = (res) => {
 
     refNumScanned.forEach((element) => {
       if (element.Ref === res) {
-        console.log("hittar en duplicate");
         element.Amount += 1;
-        console.log("nytt amount värde är " + element.Amount);
         checkIfDuplicate = true;
       }
     });
@@ -61,6 +61,35 @@ btnScanQR.onclick = () => {
       tick();
       scan();
     });
+};
+
+
+btnScanQRbtn.onclick = () => {
+  navigator.mediaDevices
+    .getUserMedia({ video: { facingMode: "environment" } })
+    .then(function (stream) {
+      scanning = true;
+      qrResult.hidden = true;
+      btnScanQR.hidden = true;
+      canvasElement.hidden = false;
+      video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
+      video.srcObject = stream;
+      video.play();
+      tick();
+      scan();
+    });
+};
+
+
+btnStopQRbtn.onclick = () => {
+
+  qrResult.hidden = false;
+  btnScanQR.hidden = false;
+  canvasElement.hidden = true;
+  video.srcObject.getTracks().forEach((track) => {
+    track.stop();
+  });
+  
 };
 
 function tick() {
@@ -101,14 +130,14 @@ function generateTable() {
     <td>
         <div class="col-3 col-md-2 d-flex">
         <button id="reduce${element.Ref}" class="btn btn-light reduce-button">
-        <img src="./images/dash-circle-fill.svg"/>
+        <img src="../../images/dash-circle-fill.svg"/>
         </button>
-            <input type="text" maxlength="2" value="1"  class="adjustAmount${element.Ref} text-center" style="width: 25px">
+            <input type="text" maxlength="2" value="1"  class="adjustAmount${element.Ref} text-center" style="width: 30px">
             <button id="add${element.Ref}" class="btn btn-light add-button">
-                <img src="./images/plus-circle-fill.svg"/>
+                <img src="../../images/plus-circle-fill.svg"/>
                 </button>
             <button id="trash${element.Ref}" class="btn btn-light trash-button">
-            <img src="./images/trash-fill.svg"/>
+            <img src="../../images/trash-fill.svg"/>
             </button>
         </div>
     </td>
