@@ -132,7 +132,7 @@ function submitFromList(){
     
         localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
     
-        generateTable();
+        window.location.replace("./")
 }
 
 

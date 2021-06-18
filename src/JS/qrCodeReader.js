@@ -36,7 +36,7 @@ qrcode.callback = (res) => {
 
     localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
 
-    generateTable();
+    window.location.replace("./")
 
     video.srcObject.getTracks().forEach((track) => {
       track.stop();
@@ -83,7 +83,8 @@ btnScanQRbtn.onclick = () => {
 
 
 btnStopQRbtn.onclick = () => {
-  swal("This function is for future updates")
+  window.location.replace("./")
+  //swal("This function is for future updates")
 };
 
 function tick() {
@@ -171,7 +172,7 @@ function addAmount(refToAdd) {
       }
   });
   localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
-  generateTable();
+  window.location.replace("./")
 }
 
 
@@ -187,7 +188,7 @@ function reduceAmount(refToReduce) {
         }
     });
     localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
-    generateTable();
+    window.location.replace("./")
   }
 
   function removeReference(refToRemove){
@@ -201,5 +202,5 @@ function reduceAmount(refToReduce) {
         }
     });
     localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
-    generateTable();
+    window.location.replace("./")
   }
