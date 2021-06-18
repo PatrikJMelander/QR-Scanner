@@ -15,7 +15,8 @@ var refNumScanned = [];
 
 let scanning = false;
 
-qrcode.callback = (res) => {
+qrcode.callback = (res) => { 
+  refNumScanned =JSON.parse(localStorage.getItem("RefNumbersScanned"));
   if (res) {
     outputData.innerText = res;
     scanning = false;
@@ -83,12 +84,8 @@ btnScanQRbtn.onclick = () => {
 
 btnStopQRbtn.onclick = () => {
 
-  qrResult.hidden = false;
-  btnScanQR.hidden = false;
-  canvasElement.hidden = true;
-  video.srcObject.getTracks().forEach((track) => {
-    track.stop();
-  });
+  location.reload();
+
   
 };
 
@@ -112,6 +109,8 @@ function scan() {
 function generateTable() {
   refNumScanned = JSON.parse(localStorage.getItem("RefNumbersScanned"));
   var counter = 1;
+
+  console.log("inne i generate table")
 
   $("#table-for-scanned-references").empty();
 
@@ -167,9 +166,10 @@ function generateTable() {
 function addAmount(refToAdd) {
   refNumScanned = JSON.parse(localStorage.getItem("RefNumbersScanned"));
   refToAdd = refToAdd.slice(3);
-  console.log(refToAdd)
+  
 
   var amountToAdd = $(".adjustAmount"+refToAdd).val()
+  console.log("är inne i addAmount functionen" + amountToAdd)
 
   refNumScanned.forEach(element => {
       if (element.Ref == refToAdd){
@@ -193,6 +193,7 @@ function reduceAmount(refToReduce) {
         }
     });
     localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
+
     generateTable();
   }
 
@@ -207,5 +208,6 @@ function reduceAmount(refToReduce) {
         }
     });
     localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
+
     generateTable();
   }

@@ -131,7 +131,7 @@ function submitFromList(){
         }
     
         localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
-    
+        console.log("går till generateTable() ifrån submitFromList()")
         generateTable();
 }
 
