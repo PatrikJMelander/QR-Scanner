@@ -251,9 +251,11 @@
     const scanner = new QrScanner(video, result => setResult(camQrResult, result), error => {
         camQrResult.textContent = error;
         camQrResult.style.color = 'inherit';
+        
     });
 
-    scanner.start().then(() => {
+
+    scanner.start().then(() =>{ 
         scanner.hasFlash().then(hasFlash => {
             camHasFlash.textContent = hasFlash;
             if (hasFlash) {
@@ -265,8 +267,6 @@
         });
     });
 
-     // for debugging
-     window.scanner = scanner;
 
      document.getElementById('start-button').addEventListener('click', () => {
         video.hidden = false;
