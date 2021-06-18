@@ -16,6 +16,7 @@ var refNumScanned = [];
 let scanning = false;
 
 qrcode.callback = (res) => {
+  console.log(qrcode)
   if (res) {
     outputData.innerText = res;
     scanning = false;
@@ -82,14 +83,7 @@ btnScanQRbtn.onclick = () => {
 
 
 btnStopQRbtn.onclick = () => {
-
-  qrResult.hidden = false;
-  btnScanQR.hidden = false;
-  canvasElement.hidden = true;
-  video.srcObject.getTracks().forEach((track) => {
-    track.stop();
-  });
-  
+  swal("This function is for future updates")
 };
 
 function tick() {
@@ -108,7 +102,7 @@ function scan() {
     setTimeout(scan, 300);
   }
 }
-
+// Generates the result of every scan in a table
 function generateTable() {
   refNumScanned = JSON.parse(localStorage.getItem("RefNumbersScanned"));
   var counter = 1;
@@ -163,7 +157,7 @@ function generateTable() {
   });
   
 }
-
+//Functions for all buttons in table
 function addAmount(refToAdd) {
   refNumScanned = JSON.parse(localStorage.getItem("RefNumbersScanned"));
   refToAdd = refToAdd.slice(3);
