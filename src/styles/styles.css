@@ -48,6 +48,9 @@ h1 {
   background-color: white;
 }
 
-footer{
-  margin-top: 20%;
+#footer-login{
+  margin-top: 70%;
+}
+#navbar-logo{
+  max-width:80%
 }
