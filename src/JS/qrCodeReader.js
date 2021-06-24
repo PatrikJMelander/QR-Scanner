@@ -17,6 +17,7 @@ let scanning = false;
 
 qrcode.callback = (res) => {
   console.log(qrcode)
+  console.log("inne i callback")
   if (res) {
     outputData.innerText = res;
     scanning = false;
@@ -36,7 +37,7 @@ qrcode.callback = (res) => {
 
     localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
 
-    window.location.replace("./")
+    window.location.replace("./");
 
     video.srcObject.getTracks().forEach((track) => {
       track.stop();
@@ -107,7 +108,8 @@ function scan() {
 function generateTable() {
   refNumScanned = JSON.parse(localStorage.getItem("RefNumbersScanned"));
   var counter = 1;
-
+  console.log("inne i generate table")
+ 
   $("#table-for-scanned-references").empty();
 
   refNumScanned.forEach((element) => {
