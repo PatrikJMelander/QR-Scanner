@@ -230,6 +230,10 @@
     <script>
       $(document).ready(() => {
         const isLoggedIn = JSON.parse(sessionStorage.getItem("loggedIn"));
+        if (refNumScanned==null){
+          localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
+        }
+        refNumScanned = JSON.parse(localStorage.getItem("RefNumbersScanned"));
 
         if (isLoggedIn == null) {
           window.location.href = "../../";

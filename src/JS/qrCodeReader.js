@@ -13,10 +13,10 @@ const btnStopQRbtn = document.getElementById("btn-stop-qr-btn");
 var refNumber = { String: "", Amount: 1 };
 var refNumScanned = [];
 
+
 let scanning = false;
 
 qrcode.callback = (res) => {
-  console.log(qrcode)
   if (res) {
     outputData.innerText = res;
     scanning = false;
@@ -36,7 +36,7 @@ qrcode.callback = (res) => {
 
     localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
 
-    window.location.replace("./")
+    generateTable();
 
     video.srcObject.getTracks().forEach((track) => {
       track.stop();
@@ -48,24 +48,15 @@ qrcode.callback = (res) => {
   }
 };
 
-btnScanQR.onclick = () => {
-  navigator.mediaDevices
-    .getUserMedia({ video: { facingMode: "environment" } })
-    .then(function (stream) {
-      scanning = true;
-      qrResult.hidden = true;
-      btnScanQR.hidden = true;
-      canvasElement.hidden = false;
-      video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
-      video.srcObject = stream;
-      video.play();
-      tick();
-      scan();
-    });
-};
-
-
 btnScanQRbtn.onclick = () => {
+  startScanner()
+};
+
+btnScanQR.onclick = () => {
+  startScanner()
+};
+
+function startScanner(){ 
   navigator.mediaDevices
     .getUserMedia({ video: { facingMode: "environment" } })
     .then(function (stream) {
@@ -79,7 +70,7 @@ btnScanQRbtn.onclick = () => {
       tick();
       scan();
     });
-};
+}
 
 
 btnStopQRbtn.onclick = () => {
@@ -172,7 +163,7 @@ function addAmount(refToAdd) {
       }
   });
   localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
-  window.location.replace("./")
+  generateTable();
 }
 
 
@@ -188,7 +179,7 @@ function reduceAmount(refToReduce) {
         }
     });
     localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
-    window.location.replace("./")
+    generateTable();
   }
 
   function removeReference(refToRemove){
@@ -202,5 +193,5 @@ function reduceAmount(refToReduce) {
         }
     });
     localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
-    window.location.replace("./")
+    generateTable();
   }

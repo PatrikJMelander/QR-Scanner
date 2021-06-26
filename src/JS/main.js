@@ -109,6 +109,7 @@ $('#submit-from-list').click(() => {
 
 //------------------------------------Dropdown Menu------------------------------------
 function submitFromList(){ 
+    refNumScanned = JSON.parse(localStorage.getItem("RefNumbersScanned"));
     signToAdd = $('#selected-from-list')
 
         if(signToAdd.val()=="Choose from list"){
@@ -132,7 +133,7 @@ function submitFromList(){
     
         localStorage.setItem("RefNumbersScanned", JSON.stringify(refNumScanned));
     
-        window.location.replace("./")
+        generateTable();
 }
 
 
